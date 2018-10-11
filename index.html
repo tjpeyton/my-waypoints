@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>MyWayPoints</title>
+  <style>
+  body{
+  background-color: #eee;
+}
+#map {
+  height: 100%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.container{
+  width: 54.5%;
+  height: 420px;
+  margin-left: 550px;
+  margin-top: 100px;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px 0px rgba(0,0,0,0.3);
+  position: absolute;
+}
+.header {
+  margin-top: 0px;
+  background-color: #FF9800;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  text-align: center;
+  position: absolute;
+}
+
+#temp {
+  font-family: "Courier New";
+  font-weight: bold;
+  font-size: 60px;
+  color: #fff;
+  position: absolute;
+  margin-left: 300px;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#temp2 {
+  font-family: "Courier New";
+  font-weight: bold;
+  font-size: 60px;
+  color: #fff;
+  position: absolute;
+  margin-left: 300px;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.city-icon-holder {
+  position:absolute;
+  left: 15%;
+  top: 40%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.city-icon-holder2 {
+  position:absolute;
+  left: 15%;
+  top: 125%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#city-name {
+  font-family: "Courier New";
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+}
+#city-name2 {
+  font-family: "Courier New";
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+}
+
+#icon {
+  width:50%;
+}
+
+#icon2 {
+  width:50%;
+}
+
+#main{
+  width: 80%;
+  height: 200px;
+  margin-left: 10px;
+  margin-top: 100px;
+  position: absolute;
+}
+
+.city-icon {
+  height: 80%;
+  width: 53%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: #B6D0E1;
+}
+
+
+.temperature {
+  position: absolute;
+  left: 50%;
+  top:0%;
+  height: 40%;
+  width: 50%;
+  background-color: #9C27B0;
+}
+
+.humidity {
+  height: 40%;
+  width: 50%;
+  position:absolute;
+  left:50%;
+  top:40%;
+  border-bottom-right-radius: 25px;
+  background-color: #E91E63;
+}
+
+.city-icon2 {
+  margin-top: 10px;
+  height: 80%;
+  width: 53%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: #B6D0E1;
+}
+
+.city-icon3 {
+  margin-top: 10px;
+  height: 40%;
+  width: 53%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: #CAD6DC;
+}
+
+#search-btn {
+  width: 40px;
+  height:40px;
+  color: #eee;
+}
+
+#search-txt {
+  color: red;
+  height:30px;
+  border-radius: 10px;
+  border-style:none;
+  outline:none;
+  padding-right:1px;
+  padding-left:1px;
+  text-align:center;
+}
+
+#search-txt1 {
+  color: red;
+  height:30px;
+  border-radius: 10px;
+  border-style:none;
+  outline:none;
+  padding-right:1px;
+  padding-left:1px;
+  text-align:center;
+}
+
+
+.search {
+  position: absolute;
+  margin-left: 10.5%;
+  margin-top: 48px;
+
+  -webkit-transform:translate(-50%,-50%);
+          transform:translate(-50%,-50%);
+}
+.search1 {
+  position: absolute;
+  margin-top: 48px;
+  margin-left: 32%;
+
+  -webkit-transform:translstartTempate(-50%,-50%);
+          transform:translate(-50%,-50%);
+}
+#total {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.title2{
+  font-family: "Courier New";
+  font-size: 30px;
+  position: absolute;
+  margin-left: 65%;
+  margin-top: 30px;
+  color: red;
+}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<body>
+    <div class="search">
+<form method="post" action="/addroute">
+      <input type="text" name="startLoc" placeholder="Enter City Name" id="search-txt" value="Buffalo">
+    </div>
+    <div class="search1">
+      <input type="text" name="endLoc" placeholder="Enter City Name" id="search-txt1" value="Monterey">
+      <input type="submit" value="Go" onclick="clearMarkers();
+      calculateAndDisplayRoute(directionsService, directionsDisplay);">
+    </div>
+  </form>
+<div class="title2">MyWayPoints</div>
+
+
+  <main id="main">
+
+    <div class="city-icon">
+      <div class="city-icon-holder">
+      <div id="city-name"></div>
+      <img src="" alt="" id="icon">
+        <div id="temp"></div>
+      </div>
+    </div>
+    <div class="city-icon2">
+      <div class="city-icon-holder2">
+      <div id="city-name2"></div>
+      <img src="" alt="" id="icon2">
+        <div id="temp2"></div>
+        </div>
+    </div>
+    <div class="city-icon3">
+      <div id="total">Total Distance:</div>
+    </div>
+
+  </main>
+  <div class = "container">
+  <div id="map"></div>
+  </div>
+
+
+  <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_y-WpD-T-hPrEuwzt9zhxFwhYXyIAEmo&callback=initMap">
+  </script>
+
+<script>
+var startC;
+var startcll;
+var endC;
+var endcll;
+var geocoder;
+var pos1;
+var pos2;
+var map;
+var markers = [];
+var totalDist;
+var totalTime;
+var directionsService;
+var directionsDisplay;
+var startTemp;
+var endTemp;
+var midpoint;
+var infoWindow;
+var stemp;
+var startName;
+var endHumidity;
+var endName;
+var marker1temp;
+var marker1Humidity;
+var marker1name;
+var marker2name;
+var marker2temp;
+var marker2Humidity;
+
+const appKey = "f24f40b1c24505685fce3b8acd0fcffc";
+
+let searchButton = document.getElementById("search-btn");
+let startInput = document.getElementById("search-txt");
+let endInput = document.getElementById("search-txt1");
+let cityName = document.getElementById("city-name");
+let cityName2 = document.getElementById("city-name2");
+let icon = document.getElementById("icon");
+let icon2 = document.getElementById("icon2");
+let humidity = document.getElementById("startHumid");
+let humidity1 = document.getElementById("endHumid");
+let starttempdis = document.getElementById("temp");
+let endtempdis = document.getElementById("temp2");
+var startHumidity;
+
+startInput.addEventListener("keyup", enterPressed);
+endInput.addEventListener("keyup", enterPressed);
+function initMap() {
+// when page loads, init map with defualt direction route
+
+
+  geocoder = new google.maps.Geocoder();
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer(
+  {
+      suppressMarkers: true
+  });
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 7,
+    center: {lat: 41.85, lng: -87.65}
+  });
+  directionsDisplay.setMap(map);
+  calculateAndDisplayRoute(directionsService, directionsDisplay);
+}
+
+function enterPressed(event) { // When user presses enter, update information on map
+  if (event.key === "Enter") {
+    clearMarkers();
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  }
+}
+// Make calls to the openweathermap api to gather weather information at the starting location, end location and the two waypoints
+function findWeatherDetails() {
+  if (startInput.value === "") {
+
+  }else {
+    let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + startInput.value + "&appid="+appKey;
+   httpRequestAsync(searchLink, theResponse);
+   let searchLink2 = "https://api.openweathermap.org/data/2.5/weather?q=" + endInput.value + "&appid="+appKey;
+  httpRequestAsync(searchLink2, theResponse2);
+  let searchLink3 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos1.lat() + "&lon=" + pos1.lng() + "&appid="+appKey;
+ httpRequestAsync(searchLink3, theResponse3);
+ let searchLink4 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos2.lat() + "&lon=" + pos2.lng() + "&appid="+appKey;
+httpRequestAsync(searchLink4, theResponse4);
+  }
+ }
+// process each weather api response
+function theResponse(response) {
+  let jsonObject = JSON.parse(response);
+  cityName.innerHTML = jsonObject.name;
+  startName =  jsonObject.name;
+  icon.src = "http://openweathermap.org/img/w/" + jsonObject.weather[0].icon + ".png";
+  console.log(parseInt(jsonObject.main.temp - 273) + "°");
+  starttempdis.innerHTML = parseInt(jsonObject.main.temp - 273) + "°";
+  startTemp = "Tempature: " + parseInt(jsonObject.main.temp - 273) + "°";
+  startHumidity = "Humidity: " + jsonObject.main.humidity + "%";
+
+}
+
+function theResponse2(response) {
+  let jsonObject = JSON.parse(response);
+  cityName2.innerHTML = jsonObject.name;
+  endName = jsonObject.name;
+  icon2.src = "http://openweathermap.org/img/w/" + jsonObject.weather[0].icon + ".png";
+  console.log(parseInt(jsonObject.main.temp - 273) + "°");
+  endtempdis.innerHTML = parseInt(jsonObject.main.temp - 273) + "°";
+  endTemp ="Tempature: " + parseInt(jsonObject.main.temp - 273) + "°";
+  endHumidity ="Humidity: " + jsonObject.main.humidity + "%";
+}
+
+function theResponse3(response) {
+  let jsonObject = JSON.parse(response);
+
+  marker1name = jsonObject.name;
+
+  console.log(parseInt(jsonObject.main.temp - 273) + "°");
+
+  marker1temp ="Tempature: " + parseInt(jsonObject.main.temp - 273) + "°";
+
+  marker1Humidity ="Humidity: " + jsonObject.main.humidity + "%";
+}
+
+function theResponse4(response) {
+  let jsonObject = JSON.parse(response);
+
+  marker2name = jsonObject.name;
+
+  console.log(parseInt(jsonObject.main.temp - 273) + "°");
+
+  marker2temp ="Tempature: " + parseInt(jsonObject.main.temp - 273) + "°";
+
+  marker2Humidity ="Humidity: " + jsonObject.main.humidity + "%";
+}
+
+function httpRequestAsync(url, callback)
+{
+  console.log("hello");
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = () => {
+        if (httpRequest.readyState == 4 && httpRequest.status == 200)
+            callback(httpRequest.responseText);
+    }
+    httpRequest.open("GET", url, true); // true for asynchronous
+    httpRequest.send();
+}
+// feed user input to directions service and set on map.
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: startInput.value,
+    destination: endInput.value,
+    travelMode: 'DRIVING',
+
+  }, function(result, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(result);
+      codeAddress();
+      computeTotalDistance(result);
+      getCoordinates(result);
+
+    }
+    else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+
+}
+// geocode the lat and lng of the start and end locations
+function codeAddress() {
+
+    var address = startInput.value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      var mystartC = new Array();
+      if (status == 'OK') {
+        var latLong = results[0].geometry.location
+        startC = latLong.lat() + "," + latLong.lng();
+        }
+       else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+
+    });
+
+    var address = endInput.value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      var myendC = new Array();
+      if (status == 'OK') {
+        var latLong = results[0].geometry.location
+        endC = latLong.lat() + "," + latLong.lng();
+        }
+       else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+    totalDist = 0;
+    totalTime = 0;
+// compute the total distance of the current route
+    function computeTotalDistance(result) {
+    totalDist = 0;
+    totalTime = 0;
+    var myroute = result.routes[0];
+    for (i = 0; i < myroute.legs.length; i++) {
+      totalDist += myroute.legs[i].distance.value;
+      totalTime += myroute.legs[i].duration.value;
+    }
+    totalDist = totalDist / 1000.
+    document.getElementById("total").innerHTML = "Distance: : " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
+
+
+
+  }
+  // get the lat and lng of the waypoint markers by parsing the overview path of the current route and determining the locatoin to place marlers
+  function getCoordinates(result) {
+
+        var currentRouteArray = result.routes[0];  //Returns a complex object containing the results of the current route
+        var currentRoute = currentRouteArray.overview_path;
+        var numberofWaypoints =currentRoute.length;
+        midPoint= result.routes[0].overview_path[parseInt( numberofWaypoints / 2)];
+
+        pos1 = new google.maps.LatLng(currentRoute[parseInt(currentRoute.length/3)].lat(), currentRoute[parseInt(currentRoute.length/3)].lng());
+        pos2 = new google.maps.LatLng(currentRoute[parseInt(currentRoute.length*(2/3))].lat(), currentRoute[parseInt(currentRoute.length*(2/3))].lng());
+        startcll = new google.maps.LatLng(currentRoute[0].lat(), currentRoute[0].lng());
+        endcll = new google.maps.LatLng(currentRoute[currentRoute.length - 1].lat(), currentRoute[currentRoute.length -1].lng());
+
+        findWeatherDetails();
+        displayMarkers();
+  }
+  //Feed each marker the position information as well as the weather information
+  function displayMarkers(){
+
+    infoWindow = new google.maps.InfoWindow({
+    });
+
+    var markerS = new google.maps.Marker({
+      position: startcll,
+      title:"start"
+
+    });
+
+    markerS.addListener('click', function() {
+    infoWindow.setContent('<div>' +startName+ '<div/>' +
+                          '<div>' +startTemp+ '<div/>' +
+                          '<div>' +startHumidity+ '<div/>');
+
+    infoWindow.open(map, markerS);
+  });
+
+    markers.push(markerS);
+
+    var markerE = new google.maps.Marker({
+      position: endcll,
+      title:"end"
+    });
+
+    markerE.addListener('click', function() {
+    infoWindow.setContent('<div>' +endName+ '<div/>' +
+                          '<div>' +endTemp+ '<div/>' +
+                          '<div>' +endHumidity+ '<div/>');
+    infoWindow.open(map, markerE);
+  });
+
+    markers.push(markerE);
+
+    var marker1 = new google.maps.Marker({
+      position: pos1,
+      title:"hello Wrld"
+    });
+
+    marker1.addListener('click', function() {
+    infoWindow.setContent('<div>' +marker1name+ '<div/>' +
+                          '<div>' +marker1temp+ '<div/>' +
+                          '<div>' +marker1Humidity+ '<div/>');
+    infoWindow.open(map, marker1);
+  });
+
+    markers.push(marker1);
+
+
+    var marker2 = new google.maps.Marker({
+      position: pos2,
+      title:"Hello World!"
+    });
+
+    marker2.addListener('click', function() {
+    infoWindow.setContent('<div>' +marker2name+ '<div/>' +
+                          '<div>' +marker2temp+ '<div/>' +
+                          '<div>' +marker2Humidity+ '<div/>');
+    infoWindow.open(map, marker2);
+  });
+
+    markers.push(marker2);
+
+    marker1.setMap(map);
+    marker2.setMap(map);
+    markerS.setMap(map);
+    markerE.setMap(map);
+  }
+
+  function setMapOnAll(map) {
+   for (var i = 0; i < markers.length; i++) {
+     markers[i].setMap(map);
+   }
+  }
+// clear markers after every new user input
+  function clearMarkers() {
+    setMapOnAll(null);
+    markers = [];
+
+  }
+
+</script>
+
+</body>
+
+</html>
