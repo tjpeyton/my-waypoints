@@ -26,7 +26,7 @@ var marker2name;
 var marker2temp;
 var marker2Humidity;
 
-const appKey = "f24f40b1c24505685fce3b8acd0fcffc";
+const appKey = "<API-KEY>";
 
 let searchButton = document.getElementById("search-btn");
 let startInput = document.getElementById("search-txt");
@@ -45,8 +45,6 @@ startInput.addEventListener("keyup", enterPressed);
 endInput.addEventListener("keyup", enterPressed);
 function initMap() {
 // when page loads, init map with defualt direction route
-
-
   geocoder = new google.maps.Geocoder();
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer(
@@ -92,7 +90,6 @@ function theResponse(response) {
   starttempdis.innerHTML = parseInt(jsonObject.main.temp - 273) + "°";
   startTemp = "Tempature: " + parseInt(jsonObject.main.temp - 273) + "°";
   startHumidity = "Humidity: " + jsonObject.main.humidity + "%";
-
 }
 
 function theResponse2(response) {
@@ -108,25 +105,17 @@ function theResponse2(response) {
 
 function theResponse3(response) {
   let jsonObject = JSON.parse(response);
-
   marker1name = jsonObject.name;
-
   console.log(parseInt(jsonObject.main.temp - 273) + "°");
-
   marker1temp ="Tempature: " + parseInt(jsonObject.main.temp - 273) + "°";
-
   marker1Humidity ="Humidity: " + jsonObject.main.humidity + "%";
 }
 
 function theResponse4(response) {
   let jsonObject = JSON.parse(response);
-
   marker2name = jsonObject.name;
-
   console.log(parseInt(jsonObject.main.temp - 273) + "°");
-
   marker2temp ="Tempature: " + parseInt(jsonObject.main.temp - 273) + "°";
-
   marker2Humidity ="Humidity: " + jsonObject.main.humidity + "%";
 }
 
@@ -154,7 +143,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
       codeAddress();
       computeTotalDistance(result);
       getCoordinates(result);
-
     }
     else {
       window.alert('Directions request failed due to ' + status);
@@ -204,23 +192,18 @@ function codeAddress() {
     }
     totalDist = totalDist / 1000.
     document.getElementById("total").innerHTML = "Distance: : " + totalDist + " km<br>Travel Time: " + (totalTime / 60).toFixed(2) + " minutes";
-
-
-
   }
+
   // get the lat and lng of the waypoint markers by parsing the overview path of the current route and determining the locatoin to place marlers
   function getCoordinates(result) {
-
         var currentRouteArray = result.routes[0];  //Returns a complex object containing the results of the current route
         var currentRoute = currentRouteArray.overview_path;
         var numberofWaypoints =currentRoute.length;
         midPoint= result.routes[0].overview_path[parseInt( numberofWaypoints / 2)];
-
         pos1 = new google.maps.LatLng(currentRoute[parseInt(currentRoute.length/3)].lat(), currentRoute[parseInt(currentRoute.length/3)].lng());
         pos2 = new google.maps.LatLng(currentRoute[parseInt(currentRoute.length*(2/3))].lat(), currentRoute[parseInt(currentRoute.length*(2/3))].lng());
         startcll = new google.maps.LatLng(currentRoute[0].lat(), currentRoute[0].lng());
         endcll = new google.maps.LatLng(currentRoute[currentRoute.length - 1].lat(), currentRoute[currentRoute.length -1].lng());
-
         findWeatherDetails();
         displayMarkers();
   }
@@ -273,8 +256,7 @@ function codeAddress() {
   });
 
     markers.push(marker1);
-
-
+    
     var marker2 = new google.maps.Marker({
       position: pos2,
       title:"Hello World!"
@@ -304,5 +286,4 @@ function codeAddress() {
   function clearMarkers() {
     setMapOnAll(null);
     markers = [];
-
   }
